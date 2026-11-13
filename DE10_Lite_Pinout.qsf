@@ -1,0 +1,46 @@
+# DE10-Lite Pin Assignments for TLAB2 ALU
+# Generated from specification table
+# Device: 10M50DAF484C7G
+
+# Operando X (4 bits) -> SW[3:0]
+set_location_assignment PIN_L20 -to X[0]
+set_location_assignment PIN_L19 -to X[1]
+set_location_assignment PIN_U14 -to X[2]
+set_location_assignment PIN_V14 -to X[3]
+
+# Operando Y (4 bits) -> SW[7:4]
+set_location_assignment PIN_W14 -to Y[0]
+set_location_assignment PIN_V15 -to Y[1]
+set_location_assignment PIN_U15 -to Y[2]
+set_location_assignment PIN_W15 -to Y[3]
+
+# OP[1:0] (bits menos significativos) -> SW[9:8]
+set_location_assignment PIN_W16 -to OP[0]
+set_location_assignment PIN_V16 -to OP[1]
+
+# OP[2] (bit mais significativo) -> KEY[0]
+set_location_assignment PIN_V17 -to OP[2]
+
+# CBi -> KEY[1]
+set_location_assignment PIN_W17 -to CBi
+
+# Resultado R[3:0] -> LEDR[3:0]
+set_location_assignment PIN_W19 -to R[0]
+set_location_assignment PIN_V19 -to R[1]
+set_location_assignment PIN_U19 -to R[2]
+set_location_assignment PIN_U20 -to R[3]
+
+# CBo -> LEDR[4]
+set_location_assignment PIN_V20 -to CBo
+
+# OV -> LEDR[5]
+set_location_assignment PIN_W20 -to OV
+
+# Z -> LEDR[6]
+set_location_assignment PIN_Y19 -to Z
+
+# GE -> LEDR[7]
+set_location_assignment PIN_Y20 -to GE
+
+# BE -> LEDR[8]
+set_location_assignment PIN_AA19 -to BE

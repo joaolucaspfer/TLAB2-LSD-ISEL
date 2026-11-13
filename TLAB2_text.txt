@@ -1,0 +1,217 @@
+--- PAGE 1 ---
+Licenciatura em Engenharia Informa´tica e de Computadores
+Lo´gica e Sistemas Digitais
+2026 / 2027 inverno
+Trabalho Laboratorial 2
+Circuitos Aritm´eticos e Lo´gicos
+publicado: 26 de outubro de 2026
+
+--- PAGE 2 ---
+L´ogica e Sistemas Digitais 2026/2027 inverno
+Trabalho Laboratorial 2
+Circuitos Aritm´eticos e L´ogicos
+1 Objetivo
+O objetivo deste trabalho ´e descrever um circuito aritm´etico e lo´gico (ALU
+– Arithmetic and Logic Unit) em VHDL estrutural, simular atrav´es de test-
+bench e implementa´-lo na placa de desenvolvimento DE10-Lite da Intel. Este
+trabalho ´e contabilizado na avaliac¸˜ao da unidade curricular.
+2 Descri¸c˜ao do circuito
+Pretende-se projetar uma unidade aritm´etica e l´ogica que realize as seguintes
+opera¸co˜es sobre operandos de 4 bits:
+• operac¸˜oes aritm´eticas:
+– adic¸˜ao (X +Y +CBi);
+– subtrac¸˜ao (X Y CBi);
+→ →
+– transferˆencia/incremento (Y +CBi);
+– sim´etrico/complemento ( Y CBi);
+→ →
+• operac¸˜oes l´ogicas:
+– AND com nega¸ca˜o (X Y);
+·
+– NAND (X Y);
+·
+• operac¸˜oes de deslocamento:
+– deslocamento l´ogico `a esquerda (X ↭ Y);
+– deslocamento aritm´etico `a direita (X 1).
+↑
+O resultado tem 4 bits e deve gerar os indicadores (flags) de erro: Carry/
+Borrow (CBo), Overflow (OV); e indicadores relativos: Zero (Z), Greater or
+Equal (GE) e Below or Equal (BE). As entradas e as sa´ıdas do sistema, bem
+como as opera¸co˜es, est˜ao representadas na Figura 1.
+As entradas X e Y sa˜o os operandos de 4 bits e a entrada OP de 3 bits
+seleciona a operac¸˜ao a realizar. Para as opera¸co˜es aritm´eticas, considere que
+os operandos est˜ao representados em nu´meros naturais ou relativos (inteiros
+sem e com sinal, respetivamente). A sa´ıda R, tamb´em de 4 bits,´e o resultado
+da opera¸c˜ao, no mesmo dom´ınio dos operandos. A opera¸c˜ao de deslocamento
+(Arithmetic Shift Right – ASR) desloca para a direita o valor do operando
+↑
+X em 1 bit, introduzindo um bit com o valor do bit de sinal do operando X.
+A operac¸˜ao de deslocamento ↭ (Logical Shift Left – LSL) desloca para a
+esquerda o valor do operando X no nu´mero de posic¸˜oes indicado pelos dois
+S. Andr´e, D. Velez
+
+--- PAGE 3 ---
+L´ogica e Sistemas Digitais 2026/2027 inverno
+Trabalho Laboratorial 2
+Circuitos Aritm´eticos e L´ogicos
+OP Operac¸˜ao CBo OV Z GE BE
+2..0
+CBi 4 R 000 X +Y +CBi ✁ ✁ ✁ – –
+001 X Y CBi ✁ ✁ ✁ ✁ ✁
+X 4 CBo 010 Y + → CB → i ✁ ✁ ✁ – –
+Y 4 ALU OV 011 Y CBi ✁ ✁ ✁ – –
+Z → →
+GE 100 X Y – – ✁ – –
+OP 3 BE 101 X · Y – – ✁ – –
+·
+110 X ↭Y ✁ – ✁ – –
+111 X 1 ✁ – ✁ – –
+↑
+Figura 1: Especificac¸˜ao da ALU a desenvolver (✁ – flag com significado; – –
+flag sem significado).
+bits menos significativos do operando Y (Y , entre 0 e 3), introduzindo
+1..0
+zeros nas posi¸co˜es menos significativas do resultado R; os bits Y n˜ao s˜ao
+3..2
+considerados. Quando Y = 00, o resultado ´e R = X.
+1..0
+Adicionalmente, sa˜o geradas ainda as cinco flags:
+• CBo: Representa o carry de sa´ıda da opera¸c˜ao de soma ou o borrow de
+sa´ıda da opera¸ca˜o de subtra¸ca˜o. Fica ativa quando o resultado excede
+o dom´ınio dos nu´meros naturais. Representa, igualmente, no ˆambito
+das opera¸c˜oes de deslocamento, o valor do u´ltimo bit deslocado para
+fora de X: X na opera¸ca˜o ASR e X na opera¸c˜ao LSL (sendo 0
+0 4 Y1..0
+→
+quando Y = 00);
+1..0
+• OV: Fica ativa quando o resultado excede o dom´ınio dos nu´meros
+relativos;
+• Z: Fica ativa quando o resultado ´e igual a zero;
+• GE: Fica ativa quando o primeiro operando (X) ´e maior ou igual do
+que o segundo (Y +CBi), considerando-se apenas na representa¸ca˜o de
+nu´meros relativos;
+• BE: Fica ativa quando o primeiro operando (X) ´e menor ou igual do
+que o segundo (Y +CBi), considerando-se apenas na representa¸ca˜o de
+nu´meros naturais.
+Em algumas opera¸co˜es, o valor das flags n˜ao tem significado, repre-
+sentado na tabela da Figura 1 com o cara´ter ‘–’. Nesses casos, o valor das
+flags pode assumir qualquer valor.
+O circuito devera´ ser implementado de acordo com o diagrama de blocos
+representado na Figura 2.
+O bloco Xor0 define o primeiro operando da unidade aritm´etica: deixa
+S. Andr´e, D. Velez
+
+--- PAGE 4 ---
+L´ogica e Sistemas Digitais 2026/2027 inverno
+Trabalho Laboratorial 2
+Circuitos Aritm´eticos e L´ogicos
+Figura 2: Diagrama de blocos da ALU.
+passar X ou for¸ca o valor 0, consoante o sinal OP . O bloco Decode OP
+A
+gera os sinais internos de controlo OP ...OP a partir dos 3 bits de OP. O
+A F
+MUX seleciona o resultado da unidade aritm´etica ou do mo´dulo lo´gico.
+3 Desenvolvimento
+1. Considere o m´odulo aritm´etico (AU module) desenvolvido no labo-
+rato´rio LABc para o desenvolvimento do AU module;
+2. Desenvolva e descreva em VHDL o mo´dulo de lo´gica (Logic module)
+com base no mo´dulo desenvolvido no LABb, incluindo a opera¸ca˜o LSL
+de X em Y posi¸c˜oes;
+1..0
+3. Desenvolva e descreva em VHDL o bloco Xor0, que coloca na entrada
+A do AU module o operando X ou o valor 0, consoante o sinal OP ;
+A
+4. Desenvolva o mo´dulo Decode OP em VHDL. Para tal, estabele¸ca a
+correspondˆencia entre os sinais internos OP ...OP e os 3 bits de
+A F
+entrada OP . Note que v´arios sinais OP ...OP podem depender
+2..0 A F
+dos mesmos bits de OP ;
+2..0
+S. Andr´e, D. Velez
+
+--- PAGE 5 ---
+L´ogica e Sistemas Digitais 2026/2027 inverno
+Trabalho Laboratorial 2
+Circuitos Aritm´eticos e L´ogicos
+5. Desenvolva e descreva em VHDL um novo m´odulo Flags que recebe os
+sinais das flags geradas pelo mo´dulo LABc, o resultado R e a flag CY
+gerada pelo m´odulo de lo´gica para gerar as cinco flags do circuito ALU;
+6. Reu´na as unidades referidas nos pontos anteriores e a unidade MUX
+numa entidade de topo com o nome ALU que corresponde `a descric¸˜ao
+completa da ALU. Considere um ficheiro independente para cada enti-
+dade;
+7. Descreva os ficheiros de simulac¸˜ao (testbench) e simule o circuito im-
+plementado em VHDL. Verifique os resultados obtidos;
+8. Implemente o circuito na placa DE10-Lite, considerando a seguinte
+correspondˆencia entre as entradas da ALU e os interruptores (SW) e
+bot˜oes de press˜ao (KEY) da placa:
+Entrada da ALU Placa DE10-Lite Descri¸c˜ao
+X SW operando X
+3..0 3..0
+Y SW operando Y
+3..0 7..4
+OP SW bits menos significativos de OP
+1..0 9..8
+OP KEY bit mais significativo de OP
+2 0
+CBi KEY Carry-In
+1
+9. Confirmeofuncionamentodocircuitoparaascombina¸co˜esdatabelado
+AnexoAregistandoovalorobtidocomaplaca(resultadoexperimental)
+e comparando com o resultado esperado (resultado teo´rico).
+Nota: Defina 4 combinac¸o˜es de entrada adicionais (duas para testar
+opera¸co˜es aritm´eticas (linhas #21 e #22) e duas para testar opera¸co˜es
+l´ogicas (linhas #23 e #24 da tabela em anexo);
+S. Andr´e, D. Velez
+
+--- PAGE 6 ---
+Circuitos
+Aritm´eticos
+e
+L´ogicos
+Trabalho
+Laboratorial
+2
+L´ogica
+e
+Sistemas
+Digitais
+2026/2027
+inverno
+Anexo A
+Nas colunas, (2) indica a representa¸ca˜o bin´aria, (N) o valor em nu´meros naturais e (Z) o valor em nu´meros relativos.
+Nas linhas em que um operando ´e irrelevante para a opera¸ca˜o, assinale-o com ‘–’.
+Resultado te´orico Resultado experimental
+# OP CBi X(2) X(N) X(Z) Y(2) Y(N) Y(Z) R(2) R(N) R(Z) CBo OV Z GE BE R(2) R(N) R(Z) CBo OV Z GE BE
+1 000 0 0000 1111
+2 000 1 0000 1111
+3 000 1 0101 1000
+4 000 1 1111 1010
+5 001 1 0000 1111
+6 001 1 0001 0101
+7 001 1 1010 +7
+8 010 0 – – – 1
+→
+9 010 1 – – – 0001
+10 010 1 – – – 0111
+11 010 1 – – – 1111
+12 011 0 – – – 0000
+13 011 0 – – – 1000
+14 011 1 – – – 0110
+15 011 1 – – – 1000
+16 100 1 0001 1100
+17 100 0 1101 1001
+18 101 0 1010 1110
+19 110 0 1001 0110
+20 111 1 1111 – – –
+21
+22
+23
+24
+S.
+Andr´e,
+D.
+Velez
+

@@ -1,0 +1,20 @@
+# ModelSim/QuestaSim generated files
+work/
+*.wlf
+transcript
+
+# LaTeX generated files
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.lol
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# macOS metadata
+.DS_Store
+__MACOSX/

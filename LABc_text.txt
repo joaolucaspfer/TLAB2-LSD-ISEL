@@ -1,0 +1,70 @@
+--- PAGE 1 ---
+LEIC - LSD 2627 inverno
+Laborat´orio C
+Circuitos Aritm´eticos
+1 Objetivo
+O objetivo deste trabalho ´e descrever um circuito aritm´etico (Unidade Ar-
+itm´etica) com VHDL estrutural, simular e implementar o circuito com a
+placa de desenvolvimento DE10-Lite. Este trabalho na˜o´e contabilizado para
+a classifica¸ca˜o pra´tica.
+2 Descri¸c˜ao do circuito
+Pretende-se projetar uma unidade aritm´etica que realize as opera¸co˜es adi¸ca˜o
+(+) e subtra¸ca˜o (-) sobre operandos de 4 bits. O resultado tem 4 bits e
+deve gerar os indicadores de erro (flags) Carry/Borrow (CBo) e Overflow
+(OV) constitu´ıdas por 1 bit. Esta Arithmetic Unit (AU) ´e expans´ıvel para
+operandos e resultados superiores a 4 bits, concatenando va´rias AUs atrav´es
+dos sinais Carry/Borrow in (CBi) e Carry/Borrow out (CBo).
+As entradas e sa´ıdas do sistema sa˜o representadas na Figura 1 e as
+opera¸co˜es na Tabela 1
+CB 4
+i R
+4
+A
+AU
+4
+B
+CB
+o
+OV
+AUOp
+Figura 1: Entradas e sa´ıdas da unidade aritm´etica a desenvolver.
+Tabela 1: Fun¸c˜oes da unidade aritm´etica.
+AUOp Opera¸ca˜o
+0 A + B + CBi
+1 A − B − CBi
+As entradas A e B sa˜o os operandos (cada um com 4 bits), CBi o arrasto
+de entrada e a AUOp a entrada que seleciona a operac¸˜ao a executar. A sa´ıda
+R ´e o resultado da opera¸ca˜o, que ´e acompanhada pelas flags CBo e OV.
+N. Sebasti˜ao, D. Velez
+
+--- PAGE 2 ---
+LEIC - LSD 2627 inverno
+Laborat´orio C
+Circuitos Aritm´eticos
+3 Projeto do circuito
+O circuito devera´ ser implementado de acordo com o diagrama de blocos
+representado na Figura 2.
+A3A2A1A0 B3 B2 B1 B0 CBi
+AU
+AUOp
+AM BM A3A2A1A0 B3 B2 B1 B0
+iCBo C4 Adder C0
+Flags S3S2S1S0
+RM Adder/Subtractor
+OV CBo
+OV CBo R3R2R1R0
+Figura 2: Diagrama de blocos da unidade aritm´etica.
+Para o projeto do circuito dever´a seguir os seguintes passos:
+1. Desenvolva e descreva em VHDL as seguintes unidades lo´gicas:
+(a) Somador completo de 1 bit (Full-adder);
+(b) Somador (Adder);
+(c) Somador/subtrator (Adder/Subtrator);
+(d) Unidade de flags.
+2. Descreva em VHDL a entidade de topo que reu´ne todas as unidades
+desenvolvidas na al´ınea 1, de acordo com o diagrama de blocos da
+Figura 2;
+3. Crie o ficheiro VHDL para teste (testbench) e simule o circuito;
+4. Implemente o circuito na placa DE10-Lite;
+5. Valide o funcionamento do circuito.
+N. Sebasti˜ao, D. Velez
+
