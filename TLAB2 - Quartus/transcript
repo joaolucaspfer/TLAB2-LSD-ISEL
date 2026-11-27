@@ -1,0 +1,30 @@
+# vsim -c -do "run -all; quit" ALU_tb 
+# Start time: 19:11:30 on Nov 27,2026
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.alu_tb(tb)
+# Loading work.alu(arc_alu)
+# Loading work.decoder(arch_decoder)
+# Loading work.xor0(arch_xor0)
+# Loading work.au(arch_au)
+# Loading work.addsub(arch_addsub)
+# Loading work.adder(arch_adder)
+# Loading work.fulladder(logicfulladder)
+# Loading work.flags(arch_flags)
+# Loading work.lu(arc_lu)
+# Loading work.andl(arc_andl)
+# Loading work.nandl(arc_nandl)
+# Loading work.lsl(arc_lsl)
+# Loading work.lsr(arc_lsr)
+# Loading work.asr(arc_asr)
+# Loading work.mux(arc_mux)
+# Loading work.mux_alu(arc_mux)
+# Loading work.flags_alu(arch_flags)
+# run -all
+# ** Note: All tests completed!
+#    Time: 240 ns  Iteration: 0  Instance: /alu_tb
+#  quit
+# End time: 19:11:31 on Nov 27,2026, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
