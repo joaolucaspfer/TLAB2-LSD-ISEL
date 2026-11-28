@@ -1,6 +1,6 @@
 # Quartus Prime Settings File for ALU - DE10-Lite
 # Dispositivo: 10M50DAF484C7G (MAX 10, DE10-Lite) - CONFORME SPEC
-# Pinos OFICIAIS do DE10-Lite (manual Terasic / reference design)
+# Pinos do colega (funcionaram no 10M50DAF484C6GES, mesmo package F484)
 
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M50DAF484C7G
@@ -26,32 +26,50 @@ set_global_assignment -name VHDL_FILE alu.vhd
 set_global_assignment -name VHDL_FILE alu_tb.vhd
 
 # ========================================================================
-# PIN ASSIGNMENTS DE10-LITE OFICIAIS (10M50DAF484C7G)
+# PIN ASSIGNMENTS DE10-LITE (pinos do colega - FUNCIONARAM)
 # ========================================================================
 
-# SW[0..9] - Slide Switches
-set_location_assignment PIN_A8  -to X[0]
-set_location_assignment PIN_B9  -to X[1]
-set_location_assignment PIN_A9  -to X[2]
-set_location_assignment PIN_A10 -to X[3]
-set_location_assignment PIN_B10 -to Y[0]
-set_location_assignment PIN_A11 -to Y[1]
-set_location_assignment PIN_B11 -to Y[2]
-set_location_assignment PIN_A12 -to Y[3]
-set_location_assignment PIN_B12 -to OP[0]
-set_location_assignment PIN_A13 -to OP[1]
+# ENTRADAS
+# X[3..0] = SW[3..0] (operando X)
+set_location_assignment PIN_L20 -to X[0]
+set_location_assignment PIN_L19 -to X[1]
+set_location_assignment PIN_U14 -to X[2]
+set_location_assignment PIN_V14 -to X[3]
 
-# KEY[0..1] - Push Buttons (active-low)
-set_location_assignment PIN_B14 -to OP[2]
-set_location_assignment PIN_A14 -to CBi
+# Y[3..0] = SW[7..4] (operando Y)
+set_location_assignment PIN_W14 -to Y[0]
+set_location_assignment PIN_V15 -to Y[1]
+set_location_assignment PIN_U15 -to Y[2]
+set_location_assignment PIN_W15 -to Y[3]
 
-# LEDR[0..9] - Red LEDs
-set_location_assignment PIN_A15 -to R[0]
-set_location_assignment PIN_A16 -to R[1]
-set_location_assignment PIN_B15 -to R[2]
-set_location_assignment PIN_B16 -to R[3]
-set_location_assignment PIN_A17 -to CBo
-set_location_assignment PIN_A18 -to OV
-set_location_assignment PIN_B17 -to Z
-set_location_assignment PIN_B18 -to GE
-set_location_assignment PIN_A19 -to BE
+# OP[1..0] = SW[9..8] (bits menos significativos de OP)
+set_location_assignment PIN_W16 -to OP[0]
+set_location_assignment PIN_V16 -to OP[1]
+
+# OP[2] = KEY[0] (bit mais significativo - active-low: pressionado=0)
+set_location_assignment PIN_V17 -to OP[2]
+
+# CBi = KEY[1] (Carry-In - active-low: pressionado=0)
+set_location_assignment PIN_W17 -to CBi
+
+# SAÍDAS
+# R[3..0] = LEDR[3..0] (resultado)
+set_location_assignment PIN_W19 -to R[0]
+set_location_assignment PIN_V19 -to R[1]
+set_location_assignment PIN_U19 -to R[2]
+set_location_assignment PIN_U20 -to R[3]
+
+# CBo = LEDR[4] (Carry/Borrow Out)
+set_location_assignment PIN_V20 -to CBo
+
+# OV = LEDR[5] (Overflow)
+set_location_assignment PIN_W20 -to OV
+
+# Z = LEDR[6] (Zero)
+set_location_assignment PIN_Y19 -to Z
+
+# GE = LEDR[7] (Greater or Equal - signed)
+set_location_assignment PIN_Y20 -to GE
+
+# BE = LEDR[8] (Below or Equal - unsigned)
+set_location_assignment PIN_AA19 -to BE
