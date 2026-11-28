@@ -1,5 +1,6 @@
 # Quartus Prime Settings File for ALU - DE10-Lite
-# Dispositivo: 10M50DAF484C7G (MAX 10, DE10-Lite)
+# Dispositivo: 10M50DAF484C7G (MAX 10, DE10-Lite) - spec requirement
+# Pinos baseados no projeto do colega (funcionaram no 10M50DAF484C6GES)
 
 set_global_assignment -name FAMILY "MAX 10"
 set_global_assignment -name DEVICE 10M50DAF484C7G
@@ -25,50 +26,50 @@ set_global_assignment -name VHDL_FILE alu.vhd
 set_global_assignment -name VHDL_FILE alu_tb.vhd
 
 # ========================================================================
-# PIN ASSIGNMENTS DE10-LITE (oficiais p/ 10M50DAF484C7G)
+# PIN ASSIGNMENTS DE10-LITE (pinos do colega - funcionaram)
 # ========================================================================
 
-# SW[0..9] - Switches
-# X[3..0] = SW[3..0]
-set_location_assignment PIN_A8  -to X[0]
-set_location_assignment PIN_B9  -to X[1]
-set_location_assignment PIN_A9  -to X[2]
-set_location_assignment PIN_A10 -to X[3]
+# ENTRADAS
+# X[3..0] = SW[3..0] (operando X)
+set_location_assignment PIN_L20 -to X[0]
+set_location_assignment PIN_L19 -to X[1]
+set_location_assignment PIN_U14 -to X[2]
+set_location_assignment PIN_V14 -to X[3]
 
-# Y[3..0] = SW[7..4]
-set_location_assignment PIN_B10 -to Y[0]
-set_location_assignment PIN_A11 -to Y[1]
-set_location_assignment PIN_B11 -to Y[2]
-set_location_assignment PIN_A12 -to Y[3]
+# Y[3..0] = SW[7..4] (operando Y)
+set_location_assignment PIN_W14 -to Y[0]
+set_location_assignment PIN_V15 -to Y[1]
+set_location_assignment PIN_U15 -to Y[2]
+set_location_assignment PIN_W15 -to Y[3]
 
-# OP[1..0] = SW[9..8]
-set_location_assignment PIN_B12 -to OP[0]
-set_location_assignment PIN_A13 -to OP[1]
+# OP[1..0] = SW[9..8] (bits menos significativos de OP)
+set_location_assignment PIN_W16 -to OP[0]
+set_location_assignment PIN_V16 -to OP[1]
 
-# OP[2] = KEY[0] (active-low)
-set_location_assignment PIN_B14 -to OP[2]
+# OP[2] = KEY[0] (bit mais significativo - active-low: pressionado=0)
+set_location_assignment PIN_V17 -to OP[2]
 
-# CBi = KEY[1] (active-low)
-set_location_assignment PIN_A14 -to CBi
+# CBi = KEY[1] (Carry-In - active-low: pressionado=0)
+set_location_assignment PIN_W17 -to CBi
 
-# LEDR[0..9] - LEDs vermelhos
-# R[3..0] = LEDR[3..0]
-set_location_assignment PIN_A15 -to R[0]
-set_location_assignment PIN_A16 -to R[1]
-set_location_assignment PIN_B15 -to R[2]
-set_location_assignment PIN_B16 -to R[3]
+# SAÍDAS
+# R[3..0] = LEDR[3..0] (resultado)
+set_location_assignment PIN_W19 -to R[0]
+set_location_assignment PIN_V19 -to R[1]
+set_location_assignment PIN_U19 -to R[2]
+set_location_assignment PIN_U20 -to R[3]
 
-# CBo = LEDR[4]
-set_location_assignment PIN_A17 -to CBo
+# CBo = LEDR[4] (Carry/Borrow Out)
+set_location_assignment PIN_V20 -to CBo
 
-# OV = LEDR[5]
-set_location_assignment PIN_A18 -to OV
+# OV = LEDR[5] (Overflow)
+set_location_assignment PIN_W20 -to OV
 
-# Z = LEDR[6]
-set_location_assignment PIN_B17 -to Z
+# Z = LEDR[6] (Zero)
+set_location_assignment PIN_Y19 -to Z
 
-# GE = LEDR[7]
-set_location_assignment PIN_B18 -to GE
+# GE = LEDR[7] (Greater or Equal - signed)
+set_location_assignment PIN_Y20 -to GE
 
-# BE = LEDR[8]
-set_location_assignment PIN_A19 -to BE
+# BE = LEDR[8] (Below or Equal - unsigned)
+set_location_assignment PIN_AA19 -to BE
